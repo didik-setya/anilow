@@ -125,5 +125,23 @@ $url = cek_url();
             $('#category').val(category)
         }
 
+    <?php } else if ($url == 'dashboard/season/') { ?>
+
+        function add_data() {
+            $('#mainModal').modal('show')
+            $('#mainModal .modal-title').html('Tambah Data')
+            $('#id_data').val('')
+            $('#act').val('add')
+            $('#season').val('')
+        }
+
+        function edit_data(id, season) {
+            $('#mainModal').modal('show')
+            $('#mainModal .modal-title').html('Edit Data')
+            $('#id_data').val(id)
+            $('#act').val('edit')
+            $('#season').val(season)
+        }
+
     <?php } ?>
 </script>

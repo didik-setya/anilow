@@ -12,6 +12,10 @@ class Ajax extends CI_Controller
                 $this->db->where('id', $id)->delete('category');
                 $this->result('Category', 'hapus');
                 break;
+            case 'season':
+                $this->db->where('id', $id)->delete('season');
+                $this->result('Season', 'hapus');
+                break;
         }
     }
 
@@ -30,6 +34,25 @@ class Ajax extends CI_Controller
                 $data = ['category_name' => htmlspecialchars($this->input->post('category'))];
                 $this->db->where('id', $id)->update('category', $data);
                 $this->result('Category', 'edit');
+                break;
+        }
+    }
+
+    public function season()
+    {
+        cek_ajax();
+        $id = $this->input->post('id');
+        $act = $this->input->post('act');
+        switch ($act) {
+            case 'add':
+                $data = ['season_name' => htmlspecialchars($this->input->post('season'))];
+                $this->db->insert('season', $data);
+                $this->result('Season', 'tambahkan');
+                break;
+            case 'edit':
+                $data = ['season_name' => htmlspecialchars($this->input->post('season'))];
+                $this->db->where('id', $id)->update('season', $data);
+                $this->result('Season', 'edit');
                 break;
         }
     }
