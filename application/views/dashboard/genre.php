@@ -1,14 +1,15 @@
-<?php $data = $this->db->order_by('id', 'DESC')->get('season')->result(); ?>
+<?php $data = $this->db->order_by('id', 'DESC')->get('genre')->result() ?>
+
 <div class="container-fluid">
     <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <table class="table table-sm table-bordered" id="table_default">
+                    <table class="table table-bordered table-sm" id="table_default">
                         <thead>
                             <tr class="table-dark">
                                 <th>#</th>
-                                <th>Season Name</th>
+                                <th>Genre Name</th>
                                 <th><i class="fa fa-cogs"></i></th>
                             </tr>
                         </thead>
@@ -17,10 +18,10 @@
                             foreach ($data as $d) { ?>
                                 <tr>
                                     <td><?= $i++ ?></td>
-                                    <td><?= $d->season_name ?></td>
+                                    <td><?= $d->genre_name ?></td>
                                     <td>
-                                        <button class="btn btn-sm btn-danger" onclick="delete_data('<?= $d->id ?>', 'season')"><i class="fa fa-trash"></i></button>
-                                        <button class="btn btn-sm btn-success" onclick="edit_data('<?= $d->id ?>', '<?= $d->season_name ?>')"><i class="fa fa-edit"></i></button>
+                                        <button class="btn btn-sm btn-danger" onclick="delete_data('<?= $d->id ?>', 'genre')"><i class="fa fa-trash"></i></button>
+                                        <button class="btn btn-sm btn-success" onclick="edit_data('<?= $d->id ?>', '<?= $d->genre_name ?>')"><i class="fa fa-edit"></i></button>
                                     </td>
                                 </tr>
                             <?php } ?>
@@ -40,13 +41,13 @@
                 <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <?= form_open('ajax/season', 'id="form_action"') ?>
+            <?= form_open('ajax/genre', 'id="form_action"') ?>
             <input type="hidden" name="act" id="act">
             <input type="hidden" name="id" id="id_data">
             <div class="modal-body">
                 <div class="form-group">
-                    <label><b>Season Name</b></label>
-                    <input type="text" name="season" id="season" required class="form-control">
+                    <label><b>Genre Name</b></label>
+                    <input type="text" name="genre" id="genre" required class="form-control">
                 </div>
             </div>
             <div class="modal-footer">

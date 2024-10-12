@@ -36,4 +36,14 @@ class Dashboard extends CI_Controller
 
         $this->load->view('dashboard/template', $data);
     }
+
+    public function genre()
+    {
+        $data = [
+            'view' => 'dashboard/genre',
+            'title' => 'Genre'
+        ];
+
+        $this->load->view('dashboard/template', $data);
+    }
 }

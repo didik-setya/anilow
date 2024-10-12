@@ -16,6 +16,10 @@ class Ajax extends CI_Controller
                 $this->db->where('id', $id)->delete('season');
                 $this->result('Season', 'hapus');
                 break;
+            case 'genre':
+                $this->db->where('id', $id)->delete('genre');
+                $this->result('Genre', 'hapus');
+                break;
         }
     }
 
@@ -53,6 +57,25 @@ class Ajax extends CI_Controller
                 $data = ['season_name' => htmlspecialchars($this->input->post('season'))];
                 $this->db->where('id', $id)->update('season', $data);
                 $this->result('Season', 'edit');
+                break;
+        }
+    }
+
+    public function genre()
+    {
+        cek_ajax();
+        $id = $this->input->post('id');
+        $act = $this->input->post('act');
+        switch ($act) {
+            case 'add':
+                $data = ['genre_name' => htmlspecialchars($this->input->post('genre'))];
+                $this->db->insert('genre', $data);
+                $this->result('Genre', 'tambahkan');
+                break;
+            case 'edit':
+                $data = ['genre_name' => htmlspecialchars($this->input->post('genre'))];
+                $this->db->where('id', $id)->update('genre', $data);
+                $this->result('Genre', 'edit');
                 break;
         }
     }

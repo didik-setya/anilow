@@ -142,6 +142,23 @@ $url = cek_url();
             $('#act').val('edit')
             $('#season').val(season)
         }
+    <?php } else if ($url == 'dashboard/genre/') { ?>
+
+        function add_data() {
+            $('#mainModal').modal('show')
+            $('#mainModal .modal-title').html('Tambah Data')
+            $('#id_data').val('')
+            $('#act').val('add')
+            $('#genre').val('')
+        }
+
+        function edit_data(id, genre) {
+            $('#mainModal').modal('show')
+            $('#mainModal .modal-title').html('Edit Data')
+            $('#id_data').val(id)
+            $('#act').val('edit')
+            $('#genre').val(genre)
+        }
 
     <?php } ?>
 </script>
