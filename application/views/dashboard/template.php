@@ -7,11 +7,15 @@
     <link rel="stylesheet" href="<?= base_url('assets/bootstrap/css/bootstrap.min.css') ?>">
     <link href="https://cdn.datatables.net/v/bs5/dt-2.1.8/datatables.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css" integrity="sha512-q3eWabyZPc1XTCmF+8/LuE1ozpg5xxn7iO89yfSOd5/oKvyqLngoNGsx8jq92Y8eXJ/IRxQbEC+FGSYxtk2oiw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="<?= base_url('assets/select2/dist/css/select2.min.css') ?>">
 
     <script src="<?= base_url('assets/jquery/jquery.min.js') ?>"></script>
     <script src="<?= base_url('assets/bootstrap/js/bootstrap.min.js') ?>"></script>
     <script src="https://cdn.datatables.net/v/bs5/dt-2.1.8/datatables.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="<?= base_url('assets/select2/dist/js/select2.min.js') ?>"></script>
+
+
 
 
     <style>

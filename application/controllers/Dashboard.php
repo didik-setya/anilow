@@ -46,4 +46,14 @@ class Dashboard extends CI_Controller
 
         $this->load->view('dashboard/template', $data);
     }
+
+    public function content()
+    {
+        $data = [
+            'view' => 'dashboard/content',
+            'title' => 'Content'
+        ];
+
+        $this->load->view('dashboard/template', $data);
+    }
 }
