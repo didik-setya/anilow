@@ -2,6 +2,30 @@
 defined('BASEPATH') or exit('No direct script access allowed');
 $config['username'] = 'adminpusat';
 $config['password'] = md5(sha1('asw'));
+$config['type_source'] = [
+    [
+        'name' => 'Static Link',
+        'value' => 'static_link',
+    ],
+    [
+        'name' => 'Scrap link embed',
+        'value' => 'scrap_embed'
+    ],
+    [
+        'name' => 'Embed',
+        'value' => 'embed'
+    ]
+];
+
+$config['source'] = [
+    [
+        'name' => 'desudrive (Otakudesu)',
+        'value' => 'desudrive'
+    ]
+];
+
+
+
 /*
 |--------------------------------------------------------------------------
 | Base Site URL

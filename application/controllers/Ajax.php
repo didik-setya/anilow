@@ -40,6 +40,10 @@ class Ajax extends CI_Controller
                 echo json_encode($params);
                 die;
                 break;
+            case 'eps':
+                $this->db->where('id', $id)->delete('episode');
+                $this->result('Episode', 'hapus');
+                break;
         }
     }
 
@@ -246,6 +250,95 @@ class Ajax extends CI_Controller
             'about' => $data_about,
             'kategori' => $data->kategori,
             'musim' => $data->musim
+        ];
+        echo json_encode($output);
+    }
+
+    public function eps()
+    {
+        cek_ajax();
+        $id = $this->input->post('id');
+        $act = $this->input->post('act');
+        switch ($act) {
+            case 'add':
+                $title_server = $this->input->post('title_server');
+                $type_server = $this->input->post('type');
+                $link_server = $this->input->post('link');
+                $metadata_server = $this->input->post('metadata');
+                $source_server = $this->input->post('source');
+                $count_title = count($title_server);
+                $title = $this->input->post('title');
+                $cover = $this->input->post('cover');
+                $id_content = $this->input->post('id_content');
+
+                $data_source = [];
+                for ($i = 0; $i < $count_title; $i++) {
+                    $row = [
+                        'title' => $title_server[$i],
+                        'type' => $type_server[$i],
+                        'link' => $link_server[$i],
+                        'metadata' => $metadata_server[$i],
+                        'source' => $source_server[$i]
+                    ];
+                    $data_source[] = $row;
+                }
+                $json_source = json_encode($data_source);
+                $data = [
+                    'id_content' => $id_content,
+                    'title' => $title,
+                    'cover_preload' => $cover,
+                    'source' => $json_source,
+                ];
+                $this->db->insert('episode', $data);
+
+                $this->result('Episode', 'tambahkan');
+                break;
+            case 'edit':
+                $title_server = $this->input->post('title_server');
+                $type_server = $this->input->post('type');
+                $link_server = $this->input->post('link');
+                $metadata_server = $this->input->post('metadata');
+                $source_server = $this->input->post('source');
+                $count_title = count($title_server);
+                $title = $this->input->post('title');
+                $cover = $this->input->post('cover');
+                $id_content = $this->input->post('id_content');
+
+                $data_source = [];
+                for ($i = 0; $i < $count_title; $i++) {
+                    $row = [
+                        'title' => $title_server[$i],
+                        'type' => $type_server[$i],
+                        'link' => $link_server[$i],
+                        'metadata' => $metadata_server[$i],
+                        'source' => $source_server[$i]
+                    ];
+                    $data_source[] = $row;
+                }
+                $json_source = json_encode($data_source);
+                $data = [
+                    'id_content' => $id_content,
+                    'title' => $title,
+                    'cover_preload' => $cover,
+                    'source' => $json_source,
+                ];
+                $this->db->where('id', $id)->update('episode', $data);
+                $this->result('Episode', 'edit');
+                break;
+        }
+    }
+
+    public function get_data_eps_row()
+    {
+        cek_ajax();
+
+
+        $id = $this->input->post('id');
+        $data = $this->db->get_where('episode', ['id' => $id])->row();
+        $output = [
+            'title' => $data->title,
+            'cover' => $data->cover_preload,
+            'source' => json_decode($data->source)
         ];
         echo json_encode($output);
     }

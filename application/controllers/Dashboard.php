@@ -56,4 +56,32 @@ class Dashboard extends CI_Controller
 
         $this->load->view('dashboard/template', $data);
     }
+
+
+    public function anime($id = null)
+    {
+        $err_msg = [
+            'heading' => 'tidak ada',
+            'message' => 'halaman tidak di temukan'
+        ];
+        if ($id) {
+            $data_content = $this->db->get_where('content', ['id' => $id])->row();
+            if ($data_content) {
+                $data_eps = $this->db->get_where('episode', ['id_content' => $id])->result();
+                $data = [
+                    'view' => 'dashboard/anime',
+                    'title' => 'Anime',
+                    'data' => $data_eps,
+                    'content' => $data_content,
+                    'id' => $id
+                ];
+
+                $this->load->view('dashboard/template', $data);
+            } else {
+                $this->load->view('errors/html/error_404', $err_msg);
+            }
+        } else {
+            $this->load->view('errors/html/error_404', $err_msg);
+        }
+    }
 }

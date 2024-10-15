@@ -323,5 +323,124 @@ $url = cek_url();
                 }
             })
         }
+    <?php } else if ($url == 'dashboard/anime/') { ?>
+        <?php
+        $type_seource = $this->config->item('type_source');
+        $source = $this->config->item('source');
+
+        $json_source = json_encode($source);
+        $json_type = json_encode($type_seource);
+        ?>
+
+
+
+
+        function add_data() {
+            $('#mainModal').modal('show')
+            $('#mainModal .modal-title').html('Tambah Data')
+            $('#id_data').val('')
+            $('#act').val('add')
+
+            $('#title').val('')
+            $('#cover').val('')
+            $('#form_table tbody').html('')
+
+
+        }
+
+        function edit_data(id) {
+            $('#mainModal .modal-title').html('Edit Data')
+            $('#act').val('edit')
+            $('#id_data').val(id)
+
+            get_data_for_edit(id)
+        }
+
+        function add_form_source() {
+            let json_type = <?= $json_type ?>;
+            let json_source = <?= $json_source ?>;
+
+            let i;
+            let html_type = '';
+            let html_source = '';
+
+            for (i = 0; i < json_type.length; i++) {
+                html_type += '<option value="' + json_type[i].value + '">' + json_type[i].name + '</option>'
+            }
+            for (i = 0; i < json_source.length; i++) {
+                html_source += '<option value="' + json_source[i].value + '">' + json_source[i].name + '</option>'
+            }
+
+            let form_source = '<tr><td class="text-center"><button type="button" class="btn btn-sm btn-outline-danger remove_form_source"><i class="fa fa-times"></i></button></td><td><input type="text" name="title_server[]" placeholder="Title server" class="form-control" required></td><td><select name="type[]" required class="form-control"><option value="">--pilih type--</option>' + html_type + '</select></td><td><input type="text" name="link[]" placeholder="Link source" class="form-control" required></td><td><input type="text" name="metadata[]" placeholder="Title server" class="form-control" required></td><td><select name="source[]" required class="form-control"><option value="">--pilih source--</option>' + html_source + '</select></td></tr>';
+
+            $('#form_table tbody').append(form_source)
+        }
+
+        function get_data_for_edit(id) {
+            loading()
+            $.ajax({
+                url: '<?= base_url('ajax/get_data_eps_row') ?>',
+                data: {
+                    id: id
+                },
+                type: 'POST',
+                dataType: 'JSON',
+                error: function(xhr, status, error) {
+                    setTimeout(() => {
+                        Swal.close()
+                        error_alert(error)
+                    }, 200);
+                },
+                success: function(data) {
+                    setTimeout(() => {
+                        Swal.close()
+                        $('#mainModal').modal('show')
+                        console.log(data);
+                        let source = data.source
+                        let i;
+
+                        $('#title').val(data.title)
+                        $('#cover').val(data.cover)
+                        $('#form_table tbody').html('')
+
+
+                        let table_form = '';
+                        let json_type = <?= $json_type ?>;
+                        let json_source = <?= $json_source ?>;
+
+                        for (i = 0; i < source.length; i++) {
+                            let a;
+                            let b;
+                            let html_type = '';
+                            let html_source = '';
+
+                            for (a = 0; a < json_type.length; a++) {
+                                if (json_type[a].value == source[i].type) {
+                                    html_type += '<option selected value="' + json_type[a].value + '">' + json_type[a].name + '</option>'
+                                } else {
+                                    html_type += '<option value="' + json_type[a].value + '">' + json_type[a].name + '</option>'
+                                }
+                            }
+                            for (b = 0; b < json_source.length; b++) {
+                                if (json_source[b].value == source[i].source) {
+                                    html_source += '<option selected value="' + json_source[b].value + '">' + json_source[b].name + '</option>'
+                                } else {
+                                    html_source += '<option value="' + json_source[b].value + '">' + json_source[b].name + '</option>'
+                                }
+                            }
+
+                            table_form += '<tr><td class="text-center"><button type="button" class="btn btn-sm btn-outline-danger remove_form_source"><i class="fa fa-times"></i></button></td><td><input type="text" name="title_server[]" placeholder="Title server" class="form-control" required value="' + source[i].title + '"></td><td><select name="type[]" required class="form-control"><option value="">--pilih type--</option>' + html_type + '</select></td><td><input type="text" name="link[]" placeholder="Link source" class="form-control" required value="' + source[i].link + '"></td><td><input type="text" name="metadata[]" placeholder="Title server" class="form-control" required value="' + source[i].metadata + '"></td><td><select name="source[]" required class="form-control"><option value="">--pilih source--</option>' + html_source + '</select></td></tr>';
+
+                        }
+                        $('#form_table tbody').append(table_form)
+
+                    }, 200);
+                }
+            })
+        }
+
+        $(document).on('click', '.remove_form_source', function() {
+            $(this).closest('tr').remove();
+        })
     <?php } ?>
 </script>
